@@ -11,6 +11,9 @@ on:
   workflow_dispatch:
     inputs:
     
+permissions:
+  contents: write
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -18,10 +21,15 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      # - name: Checkout loconotion
+      #   uses: actions/checkout@v2
+      #   with:
+      #     repository: leoncvlt/loconotion
+      #     path: loconotion
       - name: Checkout loconotion
         uses: actions/checkout@v2
         with:
-          repository: leoncvlt/loconotion
+          repository: choux130/loconotion
           path: loconotion
 
       - name: Checkout this repo
@@ -29,14 +37,14 @@ jobs:
         with:
           path: pages_repo
 
-      - name: Download and install chromedriver
-        run: sudo apt install chromium-chromedriver
-      - name: Install Loconotion dependencies
-        run: pip install -r loconotion/requirements.txt
+      # - name: Download and install chromedriver
+      #   run: sudo apt install chromium-chromedriver
+      # - name: Install Loconotion dependencies
+      #   run: pip install -r loconotion/requirements.txt
 
-      # - name: Build Loconotion docker image
-      #   run: docker-compose build loconotion
-      #   working-directory: loconotion
+      - name: Build Loconotion docker image
+        run: docker-compose build loconotion
+        working-directory: loconotion
 
       - name: Configuration File
         run: |
@@ -44,16 +52,16 @@ jobs:
           ${{ secrets.SITE_CONFIG }}
           EOF
 
-      # - name: Run Loconotion
-      #   run: |
-      #     docker-compose run \
-      #     -v "${GITHUB_WORKSPACE}/pages_repo/dist:/app/loconotion/dist" \
-      #     -v "${GITHUB_WORKSPACE}/loconotion/example/example_site.toml:/app/loconotion/site.toml" \
-      #     loconotion "site.toml"
-      #   working-directory: loconotion
       - name: Run Loconotion
         run: |
-          python3 loconotion/loconotion --chromedriver chromedriver "pages_repo/site.toml"
+          docker-compose run \
+          -v "${GITHUB_WORKSPACE}/pages_repo/dist:/app/loconotion/dist" \
+          -v "${GITHUB_WORKSPACE}/loconotion/example/example_site.toml:/app/loconotion/site.toml" \
+          loconotion "site.toml"
+        working-directory: loconotion
+      # - name: Run Loconotion
+      #   run: |
+      #     python3 loconotion/loconotion --chromedriver chromedriver "pages_repo/site.toml"
 
       - name: Deploy to Pages
         uses: JamesIves/github-pages-deploy-action@3.7.1
