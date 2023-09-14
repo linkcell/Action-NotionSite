@@ -1,0 +1,53 @@
+name = "notion"
+page = "https://ochland.notion.site/Community-a39ce557c4384144b5f799663a6cfdca"
+theme = "dark"
+[site]
+
+  [[site.meta]]
+  name = "title"
+  content = "Loconotion Test Site"
+
+  [[site.meta]]
+  name = "description"
+  content = "A static site generated from a Notion.so page using Loconotion"
+
+  [site.fonts]
+  site = 'Nunito'
+  navbar = ''
+  title = 'Montserrat'
+  h1 = 'Montserrat'
+  h2 = 'Montserrat'
+  h3 = 'Montserrat'
+  body = ''
+  code = ''
+
+  # [[site.inject.head.link]]
+  # rel="icon"
+  # sizes="16x16"
+  # type="image/png"
+  # href="/example/favicon-16x16.png"
+
+  # [[site.inject.body.script]]
+  # type="text/javascript"
+  # src="/example/custom-script.js"
+
+[pages]
+
+  [pages.d2fa06f244e64f66880bb0491f58223d]
+    slug = "games-list"
+
+    [[pages.d2fa06f244e64f66880bb0491f58223d.meta]]
+    name = "description"
+    content = "A fullscreen list database page, now with a pretty slug"
+
+    [pages.d2fa06f244e64f66880bb0491f58223d.fonts]
+    body = 'DM Mono'
+
+  [pages.54dab6011e604430a21dc477cb8e4e3a]
+    slug = "film-gallery"
+
+  [pages.2604ce45890645c79f67d92833083fee]
+    slug = "books-table"
+
+  [pages.ae0a85c527824a3a855b7f4d31f4e0fc]
+    slug = "random-board"
