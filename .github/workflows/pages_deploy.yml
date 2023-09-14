@@ -29,7 +29,7 @@ jobs:
       - name: Checkout loconotion
         uses: actions/checkout@v2
         with:
-          repository: choux130/loconotion
+          repository: linkcell/loconotion
           path: loconotion
 
       - name: Checkout this repo
